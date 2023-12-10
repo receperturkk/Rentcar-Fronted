@@ -1,0 +1,53 @@
+<div class="bg-gray-200 mt-12 h-full p-2 rounded-lg">
+    <a href="/cars"><button
+            class="bg-blue-600 mt-4 rounded-md border-2 border-blue-950 w-24 text-white font-semibold hover:bg-blue-400">
+            Geri Dön
+        </button></a>
+    <div class="grid grid-cols-12 gap-2 mt-2">
+        <div class="col-span-1">
+            <div *ngFor="let image of images" (click)="setCurrentImage(image)">
+                <img [src]="baseUrl + image"
+                    class="w-[200px] mt-4 p-2 border-y-2 border-gray-500 cursor-pointer hover:bg-gray-300" alt="" />
+            </div>
+        </div>
+        <div class="col-span-6">
+            <img [src]="baseUrl + currentImage" class="w-full" alt="" />
+        </div>
+
+        <div class="col-span-4">
+            <table>
+                <tr>
+                    <th class="w-48 text-left">Araba Adı:</th>
+                    <td>{{ car.carName }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Marka:</th>
+                    <td>{{ car.brandName }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Renk:</th>
+                    <td>{{ car.colorName }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Yıl:</th>
+                    <td>{{ car.modelYear }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Günlük Ücret:</th>
+                    <td>{{ car.dailyPrice | currency: "TRY":"TL":"1.2-2" }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Açıklama:</th>
+                    <td>{{ car.description }}</td>
+                </tr>
+            </table>
+            <div class="flex justify-end">
+                <a routerLink="/rental-add/{{car.id}}/{{car.carName}}/{{car.brandName}}/{{car.colorName}}/{{car.modelYear}}/{{car.dailyPrice}}/{{car.description}}/{{currentImage}}">
+                    <button class="bg-green-600 mt-12 rounded-md border-2 border-green-950 w-24 text-white font-semibold hover:bg-green-400">
+                        Kirala
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="w-full bg-white">
+  <div
+    *ngIf="dataLoaded == false"
+    class="animate-spin inline-block w-10 h-10 border-[3px] border-current border-t-transparent text-blue-600 rounded-full"
+    role="status"
+    aria-label="loading"
+  ></div>
+  <div class="xl:w-[1000px] max-h-[500px] overflow-auto rounded border border-gray-800">
+    <table *ngIf="dataLoaded == true" class="min-w-full bg-white">
+      <thead class="bg-gray-800 text-white sticky top-0">
+        <tr>
+          <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">
+            Id
+          </th>
+          <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">
+            Car Name
+          </th>
+          <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">
+            Brand
+          </th>
+          <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">
+            Name Surname
+          </th>
+          <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">
+            Rent Date
+          </th>
+          <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">
+            Return Date
+          </th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        <tr *ngFor="let rentalDetail of rentalDetails">
+          <td class="w-1/3 text-left py-3 px-4">{{ rentalDetail.id }}</td>
+          <td class="w-1/3 text-left py-3 px-4">{{ rentalDetail.carName }}</td>
+          <td class="w-1/3 text-left py-3 px-4">
+            {{ rentalDetail.brandName }}
+          </td>
+          <td class="w-1/3 text-left py-3 px-4">
+            {{ rentalDetail.firstName +" "+ rentalDetail.lastName }}
+          </td>
+          <td class="w-1/3 text-left py-3 px-4">{{ rentalDetail.rentDate | date:'short'}}</td>
+          <td class="w-1/3 text-left py-3 px-4">
+            {{ rentalDetail.returnDate | date:'short'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

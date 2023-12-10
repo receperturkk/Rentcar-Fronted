@@ -1,0 +1,136 @@
+<div class="bg-gray-200 mt-12 h-full p-2 rounded-lg">
+    <a href="/car-detail/{{ carId }}"><button
+            class="bg-blue-600 mt-4 rounded-md border-2 border-blue-950 w-24 text-white font-semibold hover:bg-blue-400">
+            Geri Dön
+        </button></a>
+    <div class="grid grid-cols-12 gap-2 mt-2">
+        <div class="col-span-1"></div>
+        <div class="col-span-6">
+            <img [src]="baseUrl + imagePath" class="w-full" alt="" />
+        </div>
+
+        <div class="col-span-4">
+            <table>
+                <tr>
+                    <th class="w-48 text-left">Araba Adı:</th>
+                    <td>{{ carName }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Marka:</th>
+                    <td>{{ brandName }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Renk:</th>
+                    <td>{{ colorName }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Yıl:</th>
+                    <td>{{ modelYear }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Günlük Ücret:</th>
+                    <td>{{ dailyPrice | currency : "TRY" : "TL" : "1.2-2" }}</td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Açıklama:</th>
+                    <td>{{ description }}</td>
+                </tr>
+
+                <tr>
+                    <th class="w-48 text-left">Customer:</th>
+                    <td>{{ rental.customerId }}</td>
+                </tr>
+
+                <tr>
+                    <th class="w-48 text-left">Başlangıç:</th>
+                    <td>
+                        <input class="h-7" [(ngModel)]="rental.rentDate" type="datetime-local"
+                            min="{{ rental.returnDate }}" [(ngModel)]="newRentDate" name="" id="" />
+                    </td>
+                </tr>
+                <tr *ngIf="newRentDate">
+                    <th class="w-48 text-left">Gün Sayısı:</th>
+                    <td>
+                        <input class="h-7" [(ngModel)]="day" type="number" min="{{ newRentDate }}" name="" id="day" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w-48 text-left">Toplam:</th>
+                    <td ><input type="text" disabled value="{{dailyPrice*day|currency: 'TRY' : 'TL' : '1.2-2' }}"></td>
+                    
+                </tr>
+                <tr>
+                    <th></th>
+                    <td class="text-right">
+                        <!-- Modal toggle -->
+                        <button data-modal-target="staticModal" data-modal-toggle="staticModal"
+                            class="bg-green-600 mt-12 rounded-md border-2 border-green-950 w-24 text-white font-semibold hover:bg-green-400"
+                            type="button"
+                            (click)="addRental()">
+                            Öde
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Main modal -->
+            <div id="staticModal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+                class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative w-128 max-w-2xl max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                Ödeme Sayfası
+                            </h3>
+                            <button type="button"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="staticModal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-6 space-y-6">
+                            <div>
+                                <label for="small-input" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Ad Soyad {{price}}</label>
+                                <input type="text" id="small-input" class="block w-64  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="small-input" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Kart Numarası</label>
+                                <input type="text" id="small-input" class="block w-64  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div class="flex flex-row justify-between">
+                                <div>
+                                    <label for="small-input" class=" mb-1 text-sm font-medium text-gray-900 dark:text-white">SKT</label><br>
+                                    <input type="text" id="small-input" class=" w-full  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="small-input" class=" mb-1 text-sm font-medium text-gray-900 dark:text-white">CVV</label><br>
+                                    <input type="text" id="small-input" class=" w-full  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div
+                            class="flex items-end justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <button data-modal-hide="staticModal" type="button"
+                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                İptal
+                            </button>
+                            <button data-modal-hide="staticModal" type="button"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Öde 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

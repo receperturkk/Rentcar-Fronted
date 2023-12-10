@@ -1,0 +1,30 @@
+<div class="max-h-[250px] overflow-auto rounded border border-gray-200">
+  <div *ngIf="dataLoaded == false"
+    class="animate-spin inline-block w-10 h-10 border-[3px] border-current border-t-transparent text-blue-600 rounded-full"
+    role="status" aria-label="loading"></div>
+  <table class="min-w-full bg-white">
+    <thead class="bg-gray-800 text-white sticky top-0">
+      <tr>
+        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">
+          Renk
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataLoaded == true" class="text-gray-700">
+      <tr>
+        <input id="fiterText" [(ngModel)]="colorFilterText" class="border w-full mt-1 h-9 focus:border-blue-700" type="text" placeholder="Renk adı">
+      </tr>
+      <tr (click)="routerAddParam(null)">
+        <td
+          class="w-1/3 text-left py-3 px-4 bg-gray-100 hover:bg-gray-400 hover:text-white cursor-pointer focus:bg-gray-800">
+          Tüm Renkler
+        </td>
+      </tr>
+      <tr *ngFor="let color of colors | colorFilterPipe:colorFilterText" (click)="routerAddParam(color.id)">
+        <td class="w-1/3 text-left py-3 px-4 bg-gray-100 hover:bg-gray-400 hover:text-white cursor-pointer">
+          {{ color.name }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
